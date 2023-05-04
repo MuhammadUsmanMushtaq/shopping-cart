@@ -1,5 +1,6 @@
 import { Card, Button } from 'react-bootstrap';
 import { formateCurrency } from '../utilities/FormateCurrency';
+import { useShoppingCart } from '../context/ShoppingCartContext';
 
 type StoreItemsProps = {
   id: number;
@@ -7,8 +8,15 @@ type StoreItemsProps = {
   price: number;
   imgUrl: string;
 };
-export function StoreItems({ name, price, imgUrl }: StoreItemsProps) {
-  let quantity = 1;
+export function StoreItems({ id, name, price, imgUrl }: StoreItemsProps) {
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+  } = useShoppingCart();
+
+  const quantity = getItemQuantity(id);
   return (
     <>
       <Card>
@@ -25,19 +33,37 @@ export function StoreItems({ name, price, imgUrl }: StoreItemsProps) {
 
           <div className='mt-auto'>
             {quantity === 0 ? (
-              <Button className='w-100'>+ Add To Cart</Button>
+              <Button
+                className='w-100'
+                onClick={() => increaseCartQuantity(id)}
+              >
+                + Add To Cart
+              </Button>
             ) : (
               <div>
                 <div className='d-flex gap-2'>
-                  <Button variant='outline-primary' size='sm'>
+                  <Button
+                    variant='outline-primary'
+                    size='sm'
+                    onClick={() => decreaseCartQuantity(id)}
+                  >
                     -
                   </Button>
                   <span>{quantity} in cart</span>
-                  <Button variant='outline-primary' size='sm'>
+                  <Button
+                    variant='outline-primary'
+                    size='sm'
+                    onClick={() => increaseCartQuantity(id)}
+                  >
                     +
                   </Button>
                 </div>
-                <Button className='mt-2' size='sm' variant='danger'>
+                <Button
+                  className='mt-2'
+                  size='sm'
+                  variant='danger'
+                  onClick={() => removeFromCart(id)}
+                >
                   remove
                 </Button>
               </div>
