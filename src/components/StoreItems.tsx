@@ -20,7 +20,11 @@ export function StoreItems({ id, name, price, imgUrl }: StoreItemsProps) {
   return (
     <>
       <Card>
-        <Card.Img variant='top' src={imgUrl} />
+        <Card.Img
+          variant='top'
+          src={imgUrl}
+          style={{ height: '400px', objectFit: 'cover' }}
+        />
         <Card.Body>
           <Card.Title className='d-flex flex-column'>
             <span className='fs-2 mb-2'>{name}</span>
