@@ -1,7 +1,7 @@
 import { Offcanvas, Stack } from 'react-bootstrap';
 import { useShoppingCart } from '../context/ShoppingCartContext';
 import { CartItem } from './CartItem';
-import { formateCurrency } from '../utilities/FormateCurrency';
+import { formateCurrency } from '../utilities/formateCurrency';
 import storeItems from '../data/items.json';
 
 type ShoppingCartProps = {
